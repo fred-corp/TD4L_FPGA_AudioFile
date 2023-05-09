@@ -1,5 +1,7 @@
 # TD4L - FPGA AudioFile
 
+Some VHDL IPs for audio processing of an I2S audio stream.
+
 > Project made for the FPGA course at the ECAM Brussels Engineering School
 
 ## Description
