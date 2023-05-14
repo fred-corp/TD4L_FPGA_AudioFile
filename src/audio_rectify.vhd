@@ -32,24 +32,25 @@ end entity audio_gain;
 architecture rtl of audio_gain is
 
   signal rectify : std_logic_vector(1 downto 0);
+  signal sig_in  : signed(31 downto 0);
   signal sig_out : signed(31 downto 0);
 
 begin
 
   i2s_in_tready <= i2s_out_tready;
 
-  sig_out <= signed(i2s_in_tdata);
+  sig_in <= signed(i2s_in_tdata);
 
   process_clk : process (clk_in) is
   begin
 
     if rising_edge(clk_in) then
-      if (rectify = "01" and sig_out(31) = '1') then
-        sig_out <= (others => 0);
-      elsif (rectify = "10" and sig_out(31) = '1') then
-        sig_out <= -sig_out;
+      if (rectify = "01" and sig_in(31) = '1') then
+        sig_out <= (others => '0');
+      elsif (rectify = "10" and sig_in(31) = '1') then
+        sig_out <= - sig_in;
       else
-        sig_out <= sig_out;
+        sig_out <= sig_in;
       end if;
 
       i2s_out_tdata  <= std_logic_vector(sig_out);
