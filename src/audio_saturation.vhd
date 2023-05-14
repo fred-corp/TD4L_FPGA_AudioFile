@@ -3,7 +3,7 @@ library ieee;
   use ieee.numeric_std.all;
   use ieee.math_real.all;
 
-entity audio_gain is
+entity audio_saturation is
   port (
     i2s_in_tdata  : in    std_logic_vector(31 downto 0);
     i2s_in_tvalid : in    std_logic;
@@ -27,9 +27,9 @@ entity audio_gain is
     pready : out   std_logic;
     prdata : out   std_logic_vector(31 downto 0)
   );
-end entity audio_gain;
+end entity audio_saturation;
 
-architecture rtl of audio_gain is
+architecture rtl of audio_saturation is
 
   signal saturation : signed(31 downto 0);
   signal sig_in     : signed(31 downto 0);
@@ -38,8 +38,6 @@ architecture rtl of audio_gain is
 begin
 
   i2s_in_tready <= i2s_out_tready;
-
-  saturation <= X"7FFFFFFF";
 
   sig_in <= signed(i2s_in_tdata);
 
